@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit University</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+</head>
+<body>
+<div>
+  <h1>Edit <span th:text="${thisUniversity.name}"/></h1>
+
+<!--  <form th:action="@{'/universities/delete/' + ${thisUniversity.universityId}}" th:object="${thisUniversity}" method="post">-->
+<!--    <input type="hidden" name="_method" value="delete" />-->
+<!--    <button type="submit" id="submitButton" class="btn btn-danger"-->
+<!--            onClick="if (!(confirm('Please confirm if you wish to delete this university'))) return false">-->
+<!--      Delete-->
+<!--    </button>-->
+<!--  </form>-->
+
+
+<!--  <form th:action="@{'/universities/'+${thisUniversity.universityId}+'/edit'}" th:object="${thisUniversity}" th:method="POST">-->
+  <form action="#" th:action="@{/universities/edit}" th:object="${thisUniversity}" th:method="put">
+      <!--  The below tag is required for PUT/DELETE request  -->
+    <input type="hidden" th:field="*{universityId}">
+
+    <div>
+      <label th:for="${city}">City : </label>
+      <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></span>
+      <input type="text" th:field="*{city}">
+    </div>
+    <div>
+      <label th:for="${name}">Name : </label>
+      <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+      <input type="text" th:field="*{name}">
+    </div>
+    <div>
+      <label th:for="${enrollment}">Enrollment : </label>
+      <span th:if="${#fields.hasErrors('enrollment')}" th:errors="*{enrollment}"></span>
+      <input type="number" th:field="*{enrollment}" max="9999999" step="1">
+    </div>
+    <div>
+      <label th:for="${hasOnline}">Has Online Class : </label>
+      <span th:if="${#fields.hasErrors('hasOnline')}" th:errors="*{hasOnline}"></span>
+      <input type="radio" th:field="*{hasOnline}" value="1" /> Yes
+      <input type="radio" th:field="*{hasOnline}" value="0" /> No
+    </div>
+    <div>
+      <label th:for="${hasInPerson}">Offers In-Person Class</label>
+      <span th:if="${#fields.hasErrors('hasInPerson')}" th:errors="*{hasInPerson}"></span>
+      <input type="radio" th:field="*{hasInPerson}" value="1" /> Yes
+      <input type="radio" th:field="*{hasInPerson}" value="0" /> No
+    </div>
+    <div>
+      <label th:for="${yearFounded}">Year Founded</label>
+      <span th:if="${#fields.hasErrors('yearFounded')}" th:errors="*{yearFounded}"></span>
+      <input type="number" th:field="*{yearFounded}" min="1000" step="1">
+    </div>
+    <input type="submit" value="Save University">
+  </form>
+</div>
+</body>
+</html>

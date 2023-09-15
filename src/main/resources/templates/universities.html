@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Universities</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container=fluid">
+        <h1>All Universities</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>University Name</th>
+                    <th>City</th>
+                    <th>Action Links</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="university : ${universities}">
+                    <td th:text="${university.universityId}" />
+                    <td>
+                        <!-- Dynamic link with thymeleaf-->
+                        <a th:href="@{'/universities/' + ${university.universityId}}"  th:text="${university.name}"/>
+                    </td>
+                    <td th:text="${university.city}"/>
+                    <td class="d-flex justify-content-start">
+                        <a th:href="@{/universities/edit(uid=${university.universityId})}" class="btn btn-secondary">
+                            Edit
+                        </a>
+
+                        <!-- check the syntax!!!!! -->
+                        <a th:href="@{'/universities/delete/' + ${university.universityId}}" class="btn btn-danger"
+                        onClick="if (!(confirm('Please confirm if you wish to delete this university'))) return false">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/universities/new">Add a university</a>
+    </div>
+</body>
+</html>
+
+<!--This syntax is used with @PathVariable-->
+<!--th:href="@{'/universities/' + ${university.universityId}}"-->
+
+<!--This syntax is used with @RequestParam-->
+<!-- th:href="@{/universities/edit(uid=${university.universityId})}" -->
