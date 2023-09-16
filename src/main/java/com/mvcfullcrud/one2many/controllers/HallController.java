@@ -35,8 +35,9 @@ public class HallController {
     }
 
     @GetMapping("/halls/{id}")
-    public String viewOneHallPage(@PathVariable("id") Long id) {
-        return null;
+    public String viewOneHallPage(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("thisHall", hallService.findHallById(id));
+        return "hallPages/oneHall";
     }
 
 //    Edit Hall
