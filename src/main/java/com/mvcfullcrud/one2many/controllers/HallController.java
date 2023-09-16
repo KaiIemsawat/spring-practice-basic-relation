@@ -3,9 +3,11 @@ package com.mvcfullcrud.one2many.controllers;
 import com.mvcfullcrud.one2many.models.Hall;
 import com.mvcfullcrud.one2many.services.HallService;
 import com.mvcfullcrud.one2many.services.UniversityService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -20,8 +22,9 @@ public class HallController {
     /* ----- Mapping ----- */
     /* - Render Routes - */
     @GetMapping("/halls")
-    public String allHallsPage() {
-        return null;
+    public String allHallsPage(Model model) {
+        model.addAttribute("allHalls", hallService.findAllHalls());
+        return "hallPages/halls";
     }
 
 //    Render FORM PAGE
@@ -46,7 +49,11 @@ public class HallController {
     /* - Hidden Routes - */
 //    Create New hall from FORM PAGE
     @PostMapping("/halls/save") // this path will run behind the scene
-    public String addHallToDB(@ModelAttribute("hall") Hall hall) {
+    public String addHallToDB(@Valid @ModelAttribute("hall") Hall hall, BindingResult result, Model model) {
+        if(result.hasErrors()) {
+            model.addAttribute("universities", universityService.findAllUniversities());
+            return "hallPages/newHall";
+        }
         hallService.save(hall);
         return "redirect:/halls";
     }

@@ -9,14 +9,17 @@
 <body>
 <div>
     <h1>Input new Hall</h1>
+                           <!-- @{...} : Link (URL) expressions. -->
     <form action="#" th:action="@{/halls/save}" th:object="${hall}" method="POST">
         <div>
+            <!-- ${...} : Variable expressions.-->
             <label th:for="${name}">Hall Name : </label>
             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-            <!--  th:field == path (in JSP) -->
+            <!-- *{...} : Selection expressions. -->
             <input type="text" th:field="*{name}">
         </div>
         <div>
+            <!--  th:field == path (in JSP) -->
             <label th:for="${hasResidential}">Has Residential : </label>
             <span th:if="${#fields.hasErrors('hasResidential')}" th:errors="*{hasResidential}"></span>
             <input type="radio" th:field="*{hasResidential}" value="1" /> Yes
@@ -34,9 +37,10 @@
             <input type="radio" th:field="*{hasLectureRoom}" value="0" /> No
         </div>
         <!-- Example writing dropdown menu with thymeleaf -->
+        <!-- th:field works like 'path' in jsp -->
         <select id="dropUniversities" th:field="*{university}" >
-            <option value="0">Select University</option>
-        <!-- 'th:each="uni : ${universities}"' this part act as 'for each' -->
+            <!-- 'th:each="uni : ${universities}"' this part act as 'for each' -->
+            <!-- '${universities} came from model.addAttribute("universities", universityService.findAllUniversities()); in HallController -->
             <option th:each="uni : ${universities}" th:value="${uni.universityId}" th:text="${uni.name}"></option>
         </select>
 
@@ -47,3 +51,11 @@
 </div>
 </body>
 </html>
+
+<!--
+${...} : Variable expressions.
+*{...} : Selection expressions.
+#{...} : Message (i18n) expressions.
+@{...} : Link (URL) expressions.
+~{...} : Fragment expressions.
+-->

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Halls</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <h1>All Halls</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Hall Name</th>
+                    <th>University Name</th>
+                    <th>Action Links</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="eachHall : ${allHalls}">
+                    <td th:text="${eachHall.hallId}"/>
+                    <td>
+                        <a th:href="@{'/halls/' + ${eachHall.hallId}}" th:text="${eachHall.name}"/>
+                    </td>
+                    <td th:text="${eachHall.getUniversity.name}"/>
+                    <td>
+                        <a th:href="@{'/halls/edit/' + ${eachHall.hallId}}" class="btn btn-secondary">Edit</a>
+                        <a th:href="@{'/halls/delete/' + ${eachHall.hallId}}" class="btn btn-danger"
+                           onClick="if (!(confirm('Please confirm if you wish to delete this university'))) return false">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <a href="/halls/new" class="btn btn-primary">Add new hall</a>
+        </p>
+    </div>
+</body>
+</html>
