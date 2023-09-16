@@ -31,4 +31,8 @@ public class HallService {
         return optionalHall.orElseGet(() -> null);
     }
 
+    public void save(Hall theHall) {
+        hallRepo.save(theHall);
+    }
+
 }

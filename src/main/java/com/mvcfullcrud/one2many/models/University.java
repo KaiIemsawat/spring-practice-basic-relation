@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="universities")
@@ -44,6 +45,14 @@ public class University {
     @Min(value = 1000, message = "Our record is not allow any university older that the established year of 1000")
     private Integer yearFounded;
 
+
+    /* ----- Connection / Relation -----*/
+    @OneToMany(mappedBy = "university", fetch = FetchType.LAZY)
+//    Name from 'mappedBy = "thisName' need to match with the name of
+//    'private ThisModel thisName' in another model class. (Hall class in this case)
+    private List<Hall> halls;
+
+
     /* ----- CREATE and UPDATE timestamps -----*/
     @Column(updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -64,14 +73,14 @@ public class University {
 
     /* ----- CONSTRUCTORS -----*/
     public University(){} // empty constructor is also needed
-
-    public University(String city, String name, Integer enrollment, boolean hasOnline, boolean hasInPerson, Integer yearFounded) {
+    public University(String city, String name, Integer enrollment, boolean hasOnline, boolean hasInPerson, Integer yearFounded, List<Hall> halls) {
         this.city = city;
         this.name = name;
         this.enrollment = enrollment;
         this.hasOnline = hasOnline;
         this.hasInPerson = hasInPerson;
         this.yearFounded = yearFounded;
+        this.halls = halls;
     }
 
     /* ----- GETTERS and SETTERS -----*/
@@ -138,5 +147,12 @@ public class University {
     }
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<Hall> getHalls() {
+        return halls;
+    }
+    public void setHalls(List<Hall> halls) {
+        this.halls = halls;
     }
 }

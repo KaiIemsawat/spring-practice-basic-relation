@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Hall</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+</head>
+<body>
+<div>
+    <h1>Input new Hall</h1>
+    <form action="#" th:action="@{/halls/save}" th:object="${hall}" method="POST">
+        <div>
+            <label th:for="${name}">Hall Name : </label>
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+            <!--  th:field == path (in JSP) -->
+            <input type="text" th:field="*{name}">
+        </div>
+        <div>
+            <label th:for="${hasResidential}">Has Residential : </label>
+            <span th:if="${#fields.hasErrors('hasResidential')}" th:errors="*{hasResidential}"></span>
+            <input type="radio" th:field="*{hasResidential}" value="1" /> Yes
+            <input type="radio" th:field="*{hasResidential}" value="0" /> No
+        </div>
+        <div>
+            <label th:for="${floors}">Number of Floors : </label>
+            <span th:if="${#fields.hasErrors('floors')}" th:errors="*{floors}"></span>
+            <input type="number" th:field="*{floors}" min="1" step="1">
+        </div>
+        <div>
+            <label th:for="${hasLectureRoom}">Has Lecture Room : </label>
+            <span th:if="${#fields.hasErrors('hasLectureRoom')}" th:errors="*{hasLectureRoom}"></span>
+            <input type="radio" th:field="*{hasLectureRoom}" value="1" /> Yes
+            <input type="radio" th:field="*{hasLectureRoom}" value="0" /> No
+        </div>
+        <!-- Example writing dropdown menu with thymeleaf -->
+        <select id="dropUniversities" th:field="*{university}" >
+            <option value="0">Select University</option>
+        <!-- 'th:each="uni : ${universities}"' this part act as 'for each' -->
+            <option th:each="uni : ${universities}" th:value="${uni.universityId}" th:text="${uni.name}"></option>
+        </select>
+
+        <input type="submit" value="Save Hall" class="btn btn-primary">
+    </form>
+    <a href="/halls" class="btn btn-secondary">All Halls</a>
+
+</div>
+</body>
+</html>

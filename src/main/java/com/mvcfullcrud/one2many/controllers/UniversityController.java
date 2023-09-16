@@ -49,7 +49,7 @@ public class UniversityController {
         return "redirect:/universities";
     }
 
-    @GetMapping("/universities/edit")
+    @GetMapping("/universities/edit") // In the case of @RequestParam, there is no need for '{uid}'
     public String editOneUniversityPage(@RequestParam("uid") Long theId, Model viewModel) {
         viewModel.addAttribute("thisUniversity", universityService.findOneUniversityById(theId));
         return "editUniversity";
