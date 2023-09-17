@@ -26,7 +26,7 @@
                         <a th:href="@{'/universities/' + ${university.universityId}}"  th:text="${university.name}"/>
                     </td>
                     <td th:text="${university.city}"/>
-                    <td class="d-flex justify-content-start">
+                    <td class="d-flex justify-content-start gap-2">
                         <a th:href="@{/universities/edit(uid=${university.universityId})}" class="btn btn-secondary">
                             Edit
                         </a>
@@ -41,7 +41,7 @@
             </tbody>
         </table>
         <a href="/universities/new" class="btn btn-primary">Add a university</a>
-        <a href="/halls">See all halls</a>
+        <a href="/halls" class="btn btn-info">See all halls</a>
     </div>
 </body>
 </html>

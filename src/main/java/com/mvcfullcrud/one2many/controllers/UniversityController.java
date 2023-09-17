@@ -82,11 +82,6 @@ public class UniversityController {
 //    @DeleteMapping("/universities/delete/{uid}") // <-- if use this, uncomment the tags in editUniversity
     public String delete(@RequestParam("uid") Long theId) {
 
-        List<Hall> halls = hallService.findAllHalls();
-
-        for (Hall eachHall : halls) {
-            eachHall.setUniversity(null);
-        }
         universityService.deleteUniversity(theId);
         return "redirect:/universities";
     }

@@ -11,6 +11,8 @@
     <h1>Input new Hall</h1>
                            <!-- @{...} : Link (URL) expressions. -->
     <form action="#" th:action="@{/halls/save}" th:object="${hall}" method="POST">
+        <!-- VERY IMPORTANT WHEN WORKING WITH UPDATE!!! -->
+        <input type="hidden" th:field="*{hallId}">
         <div>
             <!-- ${...} : Variable expressions.-->
             <label th:for="${name}">Hall Name : </label>

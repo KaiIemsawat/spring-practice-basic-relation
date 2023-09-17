@@ -42,10 +42,15 @@ public class HallController {
 
 //    Edit Hall
     @GetMapping("/halls/edit")
-    public String editHallPage(@RequestParam("id") Long id, Model model) {
+    public String editHallPage(@RequestParam("hallId") Long id, Model model) {
+        Hall theHall = hallService.findHallById(id);
 
-        return null;
+        model.addAttribute("hall", theHall);
+        model.addAttribute("universities", universityService.findAllUniversities());
+
+        return "hallPages/newHall";
     }
+
 
     /* - Hidden Routes - */
 //    Create New hall from FORM PAGE
