@@ -1,7 +1,9 @@
 package com.mvcfullcrud.one2many.controllers;
 
 
+import com.mvcfullcrud.one2many.models.Hall;
 import com.mvcfullcrud.one2many.models.University;
+import com.mvcfullcrud.one2many.services.HallService;
 import com.mvcfullcrud.one2many.services.UniversityService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class UniversityController {
 
     @Autowired
     private UniversityService universityService;
+
+    @Autowired
+    private HallService hallService;
 
     @GetMapping("/")
     public String homeRoute() {
@@ -55,7 +62,7 @@ public class UniversityController {
         return "editUniversity";
     }
 
-    @PutMapping("/universities/edit")
+    @PostMapping("/universities/edit")
     public String editUniversity(
             @Valid @ModelAttribute("thisUniversity") University updatedUniversity,
             BindingResult result
@@ -71,9 +78,15 @@ public class UniversityController {
 
 //    @GetMapping("/.../delete") // <-- @GetMapping can use for delete and doesn't need form
 //    @DeleteMapping // <-- works with <form>
-    @GetMapping("/universities/delete/{uid}")
+    @GetMapping("/universities/delete")
 //    @DeleteMapping("/universities/delete/{uid}") // <-- if use this, uncomment the tags in editUniversity
-    public String delete(@PathVariable("uid") Long theId) {
+    public String delete(@RequestParam("uid") Long theId) {
+
+        List<Hall> halls = hallService.findAllHalls();
+
+        for (Hall eachHall : halls) {
+            eachHall.setUniversity(null);
+        }
         universityService.deleteUniversity(theId);
         return "redirect:/universities";
     }

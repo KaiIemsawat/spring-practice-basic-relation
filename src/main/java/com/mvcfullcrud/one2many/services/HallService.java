@@ -35,4 +35,8 @@ public class HallService {
         hallRepo.save(theHall);
     }
 
+    public void deleteHallById(Long id) {
+        hallRepo.deleteById(id);
+    }
+
 }

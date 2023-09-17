@@ -14,10 +14,19 @@
     <p>Offers In-Person Class : <span th:text="${thisUniversity.hasInPerson}"/></p>
     <p>Enrollment : <span th:text="${thisUniversity.enrollment}"/> students</p>
     <p>Year Founded : <span th:text="${thisUniversity.yearFounded}"/></p>
-    <p>Associated halls : </p>
-    <div th:each="hall : ${thisUniversity.getHalls}">
-      <p th:text="${hall.getName}"></p>
-    </div>
+    <!-- 'if' statement with Thymeleaf -->
+    <p>Associated halls:
+      <span th:if="${#lists.isEmpty(thisUniversity.getHalls)}">
+        <span> No associated halls found.</span>
+      </span>
+    <ul>
+      <li th:each="hall : ${thisUniversity.getHalls}">
+        <a th:text="${hall.getName}" th:href="@{'/halls/' + ${hall.hallId}}">, </a>
+      </li>
+    </ul>
+
+    </p>
+
 
     <a href="/universities" class="btn btn-primary">All Universities</a>
   </div>

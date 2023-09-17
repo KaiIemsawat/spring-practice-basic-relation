@@ -34,7 +34,7 @@ public class Hall {
 
 
     /* ----- Connection / Relation -----*/
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "university_id")
     private University university;
 //    'private ThisModel thisName' <-- thisName need to match with the one with @OneToMany

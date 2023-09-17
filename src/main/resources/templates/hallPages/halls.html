@@ -24,10 +24,21 @@
                     <td>
                         <a th:href="@{'/halls/' + ${eachHall.hallId}}" th:text="${eachHall.name}"/>
                     </td>
-                    <td th:text="${eachHall.getUniversity.name}"/>
+                    <td>
+                        <!-- Just for study purposes, there shouldn't be any hall without university -->
+                        <span th:if="${eachHall.university} == null">
+                            No University assign
+                        </span>
+                        <span th:if="${eachHall.university} != null" th:text="${eachHall.university.name}" />
+                    </td>
                     <td>
                         <a th:href="@{'/halls/edit/' + ${eachHall.hallId}}" class="btn btn-secondary">Edit</a>
-                        <a th:href="@{'/halls/delete/' + ${eachHall.hallId}}" class="btn btn-danger"
+
+
+<!--                    <a th:href="@{/employees/delete(employeeId=${tempEmployee.id})}"
+					   	class="btn btn-danger btn-sm"
+						onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">Delete</a>-->
+                        <a th:href="@{/halls/delete(hallId=${eachHall.hallId})}" class="btn btn-danger"
                            onClick="if (!(confirm('Please confirm if you wish to delete this university'))) return false">
                             Delete
                         </a>
@@ -37,6 +48,7 @@
         </table>
         <p>
             <a href="/halls/new" class="btn btn-primary">Add new hall</a>
+            <a href="/universities">See all universities</a>
         </p>
     </div>
 </body>

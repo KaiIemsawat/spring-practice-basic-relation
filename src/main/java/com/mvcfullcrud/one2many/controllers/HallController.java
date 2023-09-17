@@ -59,13 +59,14 @@ public class HallController {
         return "redirect:/halls";
     }
 
-    @PutMapping("/halls/edit/")
+    @PutMapping("/halls/edit")
     public String editHallInDB(@RequestParam("id") Long id) {
         return null;
     }
 
     @GetMapping("/halls/delete")
-    public String deleteHall(@RequestParam("id") Long id) {
+    public String deleteHall(@RequestParam("hallId") Long id) {
+        hallService.deleteHallById(id);
         return "redirect:/halls";
     }
 }

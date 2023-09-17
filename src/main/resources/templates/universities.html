@@ -32,7 +32,7 @@
                         </a>
 
                         <!-- check the syntax!!!!! -->
-                        <a th:href="@{'/universities/delete/' + ${university.universityId}}" class="btn btn-danger"
+                        <a th:href="@{/universities/delete(uid=${university.universityId})}" class="btn btn-danger"
                         onClick="if (!(confirm('Please confirm if you wish to delete this university'))) return false">
                             Delete
                         </a>
@@ -40,7 +40,8 @@
                 </tr>
             </tbody>
         </table>
-        <a href="/universities/new">Add a university</a>
+        <a href="/universities/new" class="btn btn-primary">Add a university</a>
+        <a href="/halls">See all halls</a>
     </div>
 </body>
 </html>

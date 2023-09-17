@@ -47,7 +47,7 @@ public class University {
 
 
     /* ----- Connection / Relation -----*/
-    @OneToMany(mappedBy = "university", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "university", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    Name from 'mappedBy = "thisName' need to match with the name of
 //    'private ThisModel thisName' in another model class. (Hall class in this case)
     private List<Hall> halls;
