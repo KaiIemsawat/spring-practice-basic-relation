@@ -14,6 +14,11 @@
     <p>Offers In-Person Class : <span th:text="${thisUniversity.hasInPerson}"/></p>
     <p>Enrollment : <span th:text="${thisUniversity.enrollment}"/> students</p>
     <p>Year Founded : <span th:text="${thisUniversity.yearFounded}"/></p>
+    <p>Associated halls : </p>
+    <div th:each="hall : ${thisUniversity.getHalls}">
+      <p th:text="${hall.getName}"></p>
+    </div>
+
     <a href="/universities" class="btn btn-primary">All Universities</a>
   </div>
 
