@@ -31,7 +31,7 @@ public class HallController {
     @GetMapping("halls/new")
     public String newHallPage(@ModelAttribute("hall")Hall newHall, Model model) {
         model.addAttribute("universities", universityService.findAllUniversities());
-        return "hallPages/newHall";
+        return "hallPages/hallForm";
     }
 
     @GetMapping("/halls/{id}")
@@ -43,12 +43,10 @@ public class HallController {
 //    Edit Hall
     @GetMapping("/halls/edit")
     public String editHallPage(@RequestParam("hallId") Long id, Model model) {
-        Hall theHall = hallService.findHallById(id);
+        model.addAttribute("hall", hallService.findHallById(id));
+        model.addAttribute("universities", universityService.findAllUniversities()); // For dropdown menu
 
-        model.addAttribute("hall", theHall);
-        model.addAttribute("universities", universityService.findAllUniversities());
-
-        return "hallPages/newHall";
+        return "hallPages/hallForm";
     }
 
 
@@ -58,15 +56,10 @@ public class HallController {
     public String addHallToDB(@Valid @ModelAttribute("hall") Hall hall, BindingResult result, Model model) {
         if(result.hasErrors()) {
             model.addAttribute("universities", universityService.findAllUniversities());
-            return "hallPages/newHall";
+            return "hallPages/hallForm";
         }
         hallService.save(hall);
         return "redirect:/halls";
-    }
-
-    @PutMapping("/halls/edit")
-    public String editHallInDB(@RequestParam("id") Long id) {
-        return null;
     }
 
     @GetMapping("/halls/delete")

@@ -21,16 +21,13 @@
             <tbody>
                 <tr th:each="university : ${universities}">
                     <td th:text="${university.universityId}" />
-                    <td>
-                        <!-- Dynamic link with thymeleaf-->
-                        <a th:href="@{'/universities/' + ${university.universityId}}"  th:text="${university.name}"/>
-                    </td>
+                    <td th:text="${university.name}" />
                     <td th:text="${university.city}"/>
                     <td class="d-flex justify-content-start gap-2">
+                        <a th:href="@{'/universities/' + ${university.universityId}}" class="btn btn-info">Info</a>
                         <a th:href="@{/universities/edit(uid=${university.universityId})}" class="btn btn-secondary">
                             Edit
                         </a>
-
                         <!-- check the syntax!!!!! -->
                         <a th:href="@{/universities/delete(uid=${university.universityId})}" class="btn btn-danger"
                         onClick="if (!(confirm('Please confirm if you wish to delete this university'))) return false">
